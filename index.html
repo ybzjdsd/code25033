@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content=" user-scalable=no">
+<title>code25033</title>
+
+<script type="text/javascript">
+function bodyScale() {
+    var devicewidth = document.documentElement.clientWidth;
+    var scale = devicewidth / 360; // 分母——设计稿的尺寸
+    document.body.style.zoom = scale;
+  }
+  window.onload = window.onresize = function () {
+      bodyScale();
+    };
+</script>
+
+</head>
+<body>
+
+<div><b><i>CODE</i> - 25033</b><sub><sub>v0.2.1</sub> —— made by Gary<sub></sub></sub>
+</div>
+
+<script type="text/javascript">
+var codelist=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",",",".","+","-","="];
+function dotr(num){
+    var da=num;
+    var ds="";
+    ds=ds+codelist[parseInt(da/1681)];
+    da=da%1681;
+    ds=ds+codelist[parseInt(da/41)];
+    da=da%41;
+    ds=ds+codelist[parseInt(da)];
+    return ds
+  }
+  function udtr(str){
+      function fdtr(nstr){
+          var fk=0;
+          for (var fi=0;fi<41;fi++){
+            if(codelist[fi]==nstr){
+              fk=fi;
+            }
+          }
+          return fk
+        }
+        return fdtr(str.split("")[0])*1681+fdtr(str.split("")[1])*41+fdtr(str.split("")[2])
+      }
+    
+    function encode(){
+        var wz=document.getElementById("aaa").value;
+        var key=document.getElementById("bbb").value;
+        if (key==""){
+          key="default";
+          }
+        var keyv=new Array();
+        var ns=key.length;
+        var s=""
+        for (var i=0;i<ns;i++){
+          keyv[i]=key.charCodeAt(i);
+          }
+        for (var j=0;j<wz.length;j++){
+          for (var k=0;k<ns;k++){
+            keyv[k]=(keyv[k]-0+25033)%65536;
+            }
+          s=s+dotr(wz.charCodeAt(j)^keyv[j%ns]);
+          }
+        
+         document.getElementById("kkk").innerHTML=s;
+        }
+      
+      
+        function decode(){
+        var wz=document.getElementById("aaa").value;
+        var key=document.getElementById("bbb").value;
+        if (key==""){
+          key="default";
+          }
+        var keyv=new Array();
+        var ns=key.length;
+        var s=""
+        for (var i=0;i<ns;i++){
+          keyv[i]=key.charCodeAt(i);
+          }
+        for (var j=0;j<wz.length/3;j++){
+          for (var k=0;k<ns;k++){
+            keyv[k]=(keyv[k]-0+25033)%65536;
+            }
+          s=s+String.fromCharCode(udtr(wz.split("")[3*j]+wz.split("")[3*j+1]+wz.split("")[3*j+2])^keyv[j%ns]);
+          }
+        document.getElementById("kkk").innerHTML=s;
+        
+        
+        }
+      
+      
+      </script>
+<input id="aaa" type="text" value="要加密或解密的文字" style="border-width:1px;width:310px;position:absolute;top:40px;left:10px"></input><br />
+<input id="bbb" type="text" value="密钥" style="border-width:1px;width:140px;position:absolute;top:65px;left:10px"></input>
+<input type="button" onclick="encode()" value="加密" style="background:#def;color:#247;border-radius:100px;width:73px;position:absolute;top:63px;left:155px"></input>
+<input type="button" onclick="decode()" value="解密" style="background:#def;color:#247;border-radius:100px;width:73px;position:absolute;top:63px;left:230px"></input>
+<input type="button" onclick="copy()" value="复制" style="background:#def;color:#247;border-radius:100px;width:50px;position:absolute;top:63px;left:305px"></input>
+<input type="button" onclick="clt()" value="×" style="background:#def ;color:#247;position:absolute;left:330px;top:39px;height:23px;width:23px;border-radius:99px"></input>
+
+<br />
+<div id="kkk" style="word-break:break-all;position:absolute;top:100px;left:30px;width:300px">
+❐ 此处将会显示加密后的内容
+</div>
+
+
+<script type="text/javascript">
+function copy() {
+document.getElementById("kkkm").value= document.getElementById("kkk").innerHTML;
+
+var e = document.getElementById("kkkm");
+e.select(); // 选择对象
+document.execCommand("Copy"); // 执行浏览器复制命令
+}
+
+function clt(){
+    document.getElementById("aaa").value="";
+    }
+</script>
+
+<input type="text" id="kkkm" value="aha" style="position:fixed;left:800px;top:800px"></input>
+
+      </body>
+      </html>
